@@ -25,48 +25,60 @@ class calculator {
     appendNumber(number) {
         if (number === '.' && this.currentOperand.includes('.')) return
         this.currentOperand = this.currentOperandTextElement.innerText.toString() + number.toString()
-        // if (this.previousOperand === undefined) {
-        //     this.previousOperand = ''
-        // }
     }
 
     chooseOperation(operation) {
+        if (this.currentOperand === '') return
+        if (this.currentOperand !== '') {
+            this.compute('operacion')
+        }
         this.operation = operation
         this.previousOperand = this.currentOperand
         this.currentOperand = ''
-        // if (this.previousOperand === '') return
-        // if (this.currentOperand !== '') {
-        //     this.compute()
-        // }
     }
-    compute() {
-        // let computation
-        // const previous = parseFloat(this.previousOperand)
-        // const current = parseFloat(this.currentOperand)
-        // if (isNaN(previous) || isNaN(current) || this.operation === undefined) return
-        // switch (this.operation) {
-        //     case '+':
-        //         computation = previous + current
-        //         break
-        //     case '-':
-        //         computation = previous - current
-        //         break
-        //     case '*':
-        //         computation = previous * current
-        //         break
-        //     case '/':
-        //         computation = previous / current
-        //     default:
-        //         return
-        // }
-        // this.previousOperand = computation
-        // this.operation = undefined
-        // this.currentOperand = ''
+    compute(tipo) {
+        let computation
+        const previous = parseFloat(this.previousOperand)
+        const current = parseFloat(this.currentOperand)
+        if (isNaN(previous) || isNaN(current)) return
+        switch (this.operation) {
+            case '+':
+                computation = previous + current
+                break
+            case '-':
+                computation = previous - current
+                break
+            case '*':
+                computation = previous * current
+                break
+            case '÷':
+                computation = previous / current
+                break
+            default:
+                return
+        }
+
+        if (tipo === 'operacion') {
+            this.currentOperand = computation
+            this.operation = undefined
+            this.previousOperand = ''
+        } else if (tipo === 'igual') {
+            this.currentOperand = computation
+            this.operation = undefined
+            this.previousOperand = ''
+        }
+
     }
 
     updateDisplay() {
+        if (this.previousOperand !== undefined && this.operation !== undefined) {
+            this.previousOperandTextElement.innerText = this.previousOperand + this.operation
+        } else if (this.previousOperand === undefined) {
+            this.previousOperandTextElement.innerText = ''
+        } else if (this.previousOperand === '') {
+            this.previousOperandTextElement.innerText = ''
+        }
         this.currentOperandTextElement.innerText = this.currentOperand
-        this.previousOperandTextElement.innerText = this.previousOperand
     }
 }
 
@@ -86,17 +98,17 @@ operatorButton.forEach(button => {
     })
 })
 
-// equalButton.addEventListener('click', button => {
-//     calculadora.compute()
-//     calculadora.updateDisplay()
-// })
+equalButton.addEventListener('click', button => {
+    calculadora.compute('igual')
+    calculadora.updateDisplay()
+})
 
-// clearButton.addEventListener('click', button => {
-//     calculadora.clear()
-//     calculadora.updateDisplay()
-// })
+clearButton.addEventListener('click', button => {
+    calculadora.clear()
+    calculadora.updateDisplay()
+})
 
-// deleteButton.addEventListener('click', button => {
-//     calculadora.delete()
-//     calculadora.updateDisplay()
-// })
+deleteButton.addEventListener('click', button => {
+    calculadora.delete()
+    calculadora.updateDisplay()
+})
