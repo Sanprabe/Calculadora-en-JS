@@ -25,51 +25,48 @@ class calculator {
     appendNumber(number) {
         if (number === '.' && this.currentOperand.includes('.')) return
         this.currentOperand = this.currentOperandTextElement.innerText.toString() + number.toString()
-        if (this.previousOperand === undefined) {
-            this.previousOperand = ''
-        }
+        // if (this.previousOperand === undefined) {
+        //     this.previousOperand = ''
+        // }
     }
 
     chooseOperation(operation) {
         this.operation = operation
-        if (this.previousOperand === '') {
-            this.previousOperand = this.currentOperand
-            this.currentOperand = ''
-        } else if (this.currentOperand === '' || this.currentOperand === '.') {
-            return
-        } else {
-            this.compute()
-        }
-    }
-
-    compute() {
-        let computation
-        const previous = parseFloat(this.previousOperand)
-        const current = parseFloat(this.currentOperand)
-        if (isNaN(previous) || isNaN(current)) return
-        switch (this.operation) {
-            case '+':
-                computation = previous + current
-                break
-            case '-':
-                computation = previous - current
-                break
-            case '*':
-                computation = previous * current
-                break
-            case '/':
-                computation = previous / current
-            default:
-                return
-        }
-        this.previousOperand = computation
-        this.operation = undefined
+        this.previousOperand = this.currentOperand
         this.currentOperand = ''
+        // if (this.previousOperand === '') return
+        // if (this.currentOperand !== '') {
+        //     this.compute()
+        // }
+    }
+    compute() {
+        // let computation
+        // const previous = parseFloat(this.previousOperand)
+        // const current = parseFloat(this.currentOperand)
+        // if (isNaN(previous) || isNaN(current) || this.operation === undefined) return
+        // switch (this.operation) {
+        //     case '+':
+        //         computation = previous + current
+        //         break
+        //     case '-':
+        //         computation = previous - current
+        //         break
+        //     case '*':
+        //         computation = previous * current
+        //         break
+        //     case '/':
+        //         computation = previous / current
+        //     default:
+        //         return
+        // }
+        // this.previousOperand = computation
+        // this.operation = undefined
+        // this.currentOperand = ''
     }
 
     updateDisplay() {
-        this.previousOperandTextElement.innerText = this.previousOperand
         this.currentOperandTextElement.innerText = this.currentOperand
+        this.previousOperandTextElement.innerText = this.previousOperand
     }
 }
 
@@ -89,18 +86,17 @@ operatorButton.forEach(button => {
     })
 })
 
-equalButton.addEventListener('click', button => {
-    calculadora.compute()
-    calculadora.updateDisplay()
-})
+// equalButton.addEventListener('click', button => {
+//     calculadora.compute()
+//     calculadora.updateDisplay()
+// })
 
-clearButton.addEventListener('click', button => {
-    calculadora.clear()
-    calculadora.updateDisplay()
-})
+// clearButton.addEventListener('click', button => {
+//     calculadora.clear()
+//     calculadora.updateDisplay()
+// })
 
-deleteButton.addEventListener('click', button => {
-    calculadora.delete()
-    calculadora.updateDisplay()
-})
-
+// deleteButton.addEventListener('click', button => {
+//     calculadora.delete()
+//     calculadora.updateDisplay()
+// })
